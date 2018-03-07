@@ -1,9 +1,23 @@
 # array-async-tools
 array extension for asynchronous calls
 
+#### Array.prototype.asyncForEach
+
+```js
+    await ["Tom","Dick","Harry"].forEachAsync(
+      async (person)=>{
+        console.log("trying to serve", person);
+        stateMarker[person]="being served";
+        await onlyServe(person);
+        stateMarker[person]="has been served";
+        assert.isFalse(isAnyoneBeingServedNow(), "nobody is being served now");
+      });
+
+```
+
 #### Array.prototype.awaitAll
 
-```sh
+```js
 var countCheck = 0;
 await ["Tom","Dick","Harry"].awaitAll(async (person)=>{
       await getPaymentFrom(person);
