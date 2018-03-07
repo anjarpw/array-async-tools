@@ -3,17 +3,17 @@ array extension for asynchronous calls
 
 #### Array.prototype.asyncForEach
 
+it will process one person at a time
 ```js
     await ["Tom","Dick","Harry"].forEachAsync(
       async (person)=>{
         console.log("trying to serve", person);
-        stateMarker[person]="being served";
         await onlyServe(person);
-        stateMarker[person]="has been served";
-        assert.isFalse(isAnyoneBeingServedNow(), "nobody is being served now");
+        console.log(person, "has been served");
       });
 
 ```
+
 
 #### Array.prototype.awaitAll
 
@@ -31,7 +31,7 @@ console.log(countCheck); // 3
 
 will resolve if first promise is resolved;
 
-```sh
+```js
 var countCheck = 0;
 
 function askToBeInitiator(person){
@@ -62,7 +62,7 @@ console.log(first.result); // "Aye!"
 
 will resolve if the result accomplished certain criteria;
 
-```sh
+```js
 var targetDonation = 20000;
 
 var state = {
@@ -76,7 +76,7 @@ await ["Tom","Dick","Harry"].awaitTill(async (person, s)=>{
       // Later, Tom donates 15000, 
       // Dick does not donate
       
-      var amount = await getDonation(person); 
+      var amount = await getDonationFrom(person); 
       s.totalAmount+=amount;
       s.donators.push(person);
     },
@@ -91,4 +91,5 @@ console.log(state.donators); // "Harry", "Tom"
 ```
 
 
+# For complete detail, see /test
 
