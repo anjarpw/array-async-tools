@@ -37,9 +37,9 @@ var countCheck = 0;
 function askToBeInitiator(person){
   return new Promise((resolve,reject)=>{
     var delay = Math.floor(Math.random()*10000);
-    console.log(person, "is still considering');
+    console.log(person, "is still considering");
     setTimeout(()=> {
-      console.log(person, "has decided to be a volunteer');      
+      console.log(person, "has decided to be a volunteer");      
       resolve();
       }, delay);  
   });
