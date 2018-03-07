@@ -13,7 +13,7 @@ function askForVolunteeringFrom(person){
   }
   setTimeout(()=>{
     console.log(person, "is willing to be a volunteer after ", delay[person], "ms");
-    deferred.resolve();
+    deferred.resolve("OK, I am in");
   },delay[person]);
   return deferred.promise;
 }
@@ -25,12 +25,15 @@ describe("Test AwaitAny", () => {
     console.log("\r");
     var countCheck = 0;
 
-    var volunteer = await ["Tom","Dick","Harry"].awaitAny(
+    var first = await ["Tom","Dick","Harry"].awaitAny(
       async (person)=>{
         var agreed = await askForVolunteeringFrom(person);
         countCheck++;
+        return agreed;
       });
-    console.log("finally", volunteer, "becomes the first volunteer");
+    assert.equal(first.item,"Tom","Tom is first volunter");
+    assert.equal(first.result,"OK, I am in","he said so");
+    console.log("finally", first.item, "becomes the first volunteer");
     assert.equal(countCheck,1,"only 1 has volunteer at this moment");
     await testTillEnd;
   });

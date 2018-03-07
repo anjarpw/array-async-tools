@@ -148,9 +148,13 @@ Array.prototype.awaitAny = function (func, delay){
   }, delay);
 
   this.forEach(u=>{
-    func(u).then(()=>{
+    func(u).then((res)=>{
+      console.log(res);
       delayExecutor.cancel();
-      deferred.resolve(u);
+      deferred.resolve({
+        item:u,
+        result:res
+      });
     });
   });
   return deferred.promise;
